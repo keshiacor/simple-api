@@ -52,7 +52,7 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-        command_id = $(aws ssm send-command \
+        command_id=$(aws ssm send-command \
         --document-name "AWS-RunShellScript" \
         --comment "Pulling docker image than run it" \
         --targets "Key=instanceids,Values="i-019ff13ea8e6fde5d,i-0b312705ae0a58c4c \
