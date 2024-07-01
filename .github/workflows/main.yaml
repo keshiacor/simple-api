@@ -52,11 +52,11 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-        command_id=$(aws ssm send-command \
-        --document-name "AWS-RunShellScript" \
-        --comment "Pulling docker image than run it" \
-        --targets "Key=instanceids,Values="i-019ff13ea8e6fde5d,i-0b312705ae0a58c4c \
-        --parameters 'commands=["aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ steps.login-aws-ecr.outputs.registry }}"]' 
-        )
+          command_id=$(aws ssm send-command \
+          --document-name "AWS-RunShellScript" \
+          --comment "Pulling docker image than run it" \
+          --targets "Key=instanceids,Values="i-019ff13ea8e6fde5d,i-0b312705ae0a58c4c \
+          --parameters 'commands=["aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ steps.login-aws-ecr.outputs.registry }}"]' 
+          )
 
         echo "$command_id"
