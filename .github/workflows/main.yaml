@@ -63,13 +63,13 @@ jobs:
 
           aws ssm wait command-executed \
           --command-id $command_id \
-          --instance-id i-019ff13ea8e6fde5d || true
+          --instance-id i-019ff13ea8e6fde5d,i-0b312705ae0a58c4c || true
 
           status=$(aws ssm list-commands --command-id $command_id --query "Commands[0].StatusDetails" --output text)
 
           if [ $status == "Success" ]; then
             echo "Command executed successfully"
           else
-            echo "Command failed"
+            echo "Command failed... time to debug"
             exit 1
           fi
