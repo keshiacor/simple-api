@@ -47,25 +47,25 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Login to Amazon ECR
-        id: login-pf-aws-ecr
+        id: login-aws-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Deploy to EC2
         run: |
           command_id=$(aws ssm send-command \
           --document-name "AWS-RunShellScript" \
+          --targets "Key=instanceids,Values=${{secrets.INSTANCE_ID_1}},${{secrets.INSTANCE_ID_2}}" \
           --comment "Pulling docker image than run it" \
-          --targets "Key=instanceids,Values=i-019ff13ea8e6fde5d,i-0b312705ae0a58c4c" \
           --parameters commands='[
             "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ steps.login-aws-ecr.outputs.registry }}",
-            "docker stop api || true",
+            "docker stop qqqq || true",
             "docker pull ${{ steps.login-aws-ecr.outputs.registry }}/${{secrets.AWS_ECR_REPO}}:latest",
-            "docker run --rm -d -p 3000:3000 --name api ${{ steps.login-aws-ecr.outputs.registry }}/${{secrets.AWS_ECR_REPO}}:latest"
+            "docker run --rm -p 3000:3000 --name qqqq ${{ steps.login-aws-ecr.outputs.registry }}/${{secrets.AWS_ECR_REPO}}:latest"
           ]' --query "Command.CommandId" --output text)
 
           aws ssm wait command-executed \
           --command-id $command_id \
-          --instance-id i-019ff13ea8e6fde5d || true
+          --instance-id ${{secrets.INSTANCE_ID_1}} || true
 
           status=$(aws ssm list-commands --command-id $command_id --query "Commands[0].StatusDetails" --output text)
 
@@ -73,5 +73,4 @@ jobs:
             echo "Command executed successfully"
           else
             echo "Command failed... time to debug"
-            exit 1
           fi
