@@ -56,7 +56,7 @@ jobs:
           --document-name "AWS-RunShellScript" \
           --comment "Pulling docker image than run it" \
           --targets "Key=instanceids,Values=i-019ff13ea8e6fde5d,i-0b312705ae0a58c4c" \
-          --parameters 'commands=[
+          --parameters commands='[
             "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ steps.login-aws-ecr.outputs.registry }}",
             "docker stop api || true",
             "docker pull ${{ steps.login-aws-ecr.outputs.registry }}/${{ secrets.AWS_ECR_REPO }}:latest",
