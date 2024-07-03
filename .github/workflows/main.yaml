@@ -56,7 +56,7 @@ jobs:
             "docker stop qqqq || true",
             "docker pull ${{ steps.login-aws-ecr.outputs.registry }}/${{secrets.AWS_ECR_REPO}}:latest",
             "docker run --rm -p 3000:3000 --name qqqq ${{ steps.login-aws-ecr.outputs.registry }}/${{secrets.AWS_ECR_REPO}}:latest"
-            ]'--query "Command.CommandId" --output text) 
+            ]' --query "Command.CommandId" --output text) 
 
           aws ssm wait command-executed \
           --command-id $command_id \
