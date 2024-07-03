@@ -34,7 +34,7 @@ jobs:
   deploy:
     name: Deploy to EC2
     runs-on: ubuntu-latest
-    needs: Cypress-Test
+    needs: Build Docker Image
     steps:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
