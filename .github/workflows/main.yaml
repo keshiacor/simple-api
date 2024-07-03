@@ -62,12 +62,12 @@ jobs:
           --command-id $command_id \
           --instance-id ${{secrets.INSTANCE_ID_1}} || ${{secrets.INSTANCE_ID_2}}
 
-          commandOutput=$(aws ssm list-commands --command-id $command_id) #--query "Commands[0].StatusDetails" --output text)
+          commandOutput=$(aws ssm list-commands --command-id $command_id)
+        #--query "Commands[0].StatusDetails" --output text)
 
-
-          #if [ $status == "Success" ]; then
-          #echo "Command executed successfully"
-          #else
-          #echo "Command failed... time to debug"
-          #exit 1
-          #fi
+        #if [ $status == "Success" ]; then
+        #echo "Command executed successfully"
+        #else
+        #echo "Command failed... time to debug"
+        #exit 1
+        #fi
