@@ -64,7 +64,7 @@ jobs:
           --command-id $command_id \
           --instance-id ${{secrets.INSTANCE_ID_1}} || true
 
-          commandOutput=$(aws ssm list-commands --command-id $command_id -query "Commands[0].StatusDetails" --output text)
+          commandOutput=$(aws ssm list-commands --command-id $command_id --query "Commands[0].StatusDetails" --output text)
 
           echo $commandOutput
 
