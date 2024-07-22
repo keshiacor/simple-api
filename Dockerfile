@@ -1,4 +1,4 @@
-# Base image Keshia modified
+# Base image
 FROM  --platform=linux/amd64 node:18
 
 # Create app directory
@@ -20,4 +20,4 @@ RUN npm run build
 EXPOSE 3000
 
 # Start the server using the production build
-CMD npm run migration:run && npm run start:prod
+CMD ["npm", "run", "start:prod"]
