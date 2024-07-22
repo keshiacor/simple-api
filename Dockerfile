@@ -1,4 +1,4 @@
-# Base image
+# Base image Keshia modified
 FROM  --platform=linux/amd64 node:18
 
 # Create app directory
